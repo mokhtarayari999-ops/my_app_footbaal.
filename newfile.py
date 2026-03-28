@@ -1,2 +1,5 @@
-streamlit
-pandas
+import streamlit as st
+import pandas as pd
+import random
+from collections import Counter
+
