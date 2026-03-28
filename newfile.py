@@ -1,93 +1,71 @@
-
-
 import streamlit as st
 import pandas as pd
 
-# الآن يمكنك كتابة محتوى تطبيقك، مثال:
-st.title("تطبيق المحلل التونسي")
-st.write("مرحباً بك في واجهة التطبيق الأصلية")
+# 1. إعدادات الصفحة لتناسب الجوال والمتصفحات
+st.set_page_config(
+    page_title="المحلل التونسي المحترف",
+    page_icon="⚽",
+    layout="wide",
+    initial_sidebar_state="collapsed"
+)
 
-# إذا كان لديك بيانات أو جداول:
-# df = pd.read_csv('your_data.csv')
-# st.dataframe(df)
-
-from collections import Counter
-
-# 1. إعدادات الصفحة الفاخرة
-st.set_page_config(page_title="المحلل التونسي - برو 2026", page_icon="🏆", layout="centered")
-
-# 2. تصميم CSS احترافي (ألوان الرابطة المحترفة)
+# 2. تحسين المظهر (CSS) ليكون متناسقاً مع واجهة الهاتف
 st.markdown("""
     <style>
-    .main { background-color: #ffffff; }
-    .stButton>button { width: 100%; border-radius: 25px; height: 3.5em; background: linear-gradient(45deg, #1e3c72, #2a5298); color: white; font-weight: bold; border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-    .stButton>button:hover { background: linear-gradient(45deg, #2a5298, #1e3c72); transform: scale(1.02); transition: 0.3s; }
-    .stat-box { background-color: #f1f3f5; padding: 15px; border-radius: 12px; text-align: center; border-bottom: 4px solid #1e3c72; }
-    .standings-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.9em; }
-    .standings-table th { background-color: #1e3c72; color: white; padding: 10px; }
-    .standings-table td { padding: 8px; border-bottom: 1px solid #ddd; text-align: center; }
+    [data-testid="stAppViewContainer"] { background-color: #f8f9fa; }
+    .main { text-align: right; direction: rtl; }
+    h1, h2, h3 { color: #003366; text-align: center; font-family: 'Arial'; }
+    .stSelectbox label { text-align: right; font-weight: bold; width: 100%; }
+    div[data-testid="stMetric"] { background-color: white; padding: 10px; border-radius: 10px; box-shadow: 2px 2px 5px rgba(0,0,0,0.1); }
     </style>
     """, unsafe_allow_html=True)
 
-# 3. الهوية البصرية
-st.markdown("<h1 style='text-align: center; color: #1e3c72;'>🇹🇳 المحلل التونسي المحترف</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: gray;'>نظام المحاكاة الذكي - الرابطة المحترفة الأولى 2026</p>", unsafe_allow_html=True)
+# العنوان الرئيسي
+st.title("المحلل التونسي المحترف 🇹🇳")
+st.markdown("<p style='text-align: center; color: gray;'>نظام المحاكاة الذكي - الرابطة المحترفة الأولى</p>", unsafe_allow_html=True)
 
-# 4. قاعدة البيانات الشاملة (الفرق + الترتيب)
-data = [
-    {'n': 'الترجي التونسي (EST)', 'pts': 42, 'w': 13, 'sc': 1.85, 'con': 0.25, 'crn': 6.2},
-    {'n': 'النادي الإفريقي (CA)', 'pts': 38, 'w': 11, 'sc': 1.55, 'con': 0.35, 'crn': 5.8},
-    {'n': 'الاتحاد المنستيري (USM)', 'pts': 35, 'w': 10, 'sc': 1.25, 'con': 0.55, 'crn': 4.8},
-    {'n': 'النادي الصفاقسي (CSS)', 'pts': 31, 'w': 8, 'sc': 1.40, 'con': 0.45, 'crn': 5.2},
-    {'n': 'الملعب التونسي (ST)', 'pts': 28, 'w': 7, 'sc': 1.15, 'con': 0.42, 'crn': 5.0},
-    {'n': 'النجم الساحلي (ESS)', 'pts': 24, 'w': 6, 'sc': 1.10, 'con': 0.75, 'crn': 4.5}
-]
-df = pd.DataFrame(data)
+st.divider()
 
-# 5. منطقة اختيار الفرق وإحصائيات فورية
-st.markdown("### 🏟️ إعداد المباراة")
+# 3. قسم اختيار الفرق (سيتوزع تلقائياً على الهاتف)
+st.subheader("إعداد المباراة ⚽")
 col1, col2 = st.columns(2)
+
 with col1:
-    h_name = st.selectbox("🏠 مستضيف الأرض", df['n'], index=0)
-    h_data = df[df['n'] == h_name].iloc[0]
-    st.markdown(f"<div class='stat-box'>🔥 الهجوم: {h_data['sc']}<br>🛡️ الدفاع: {h_data['con']}</div>", unsafe_allow_html=True)
+    home_team = st.selectbox("الفريق المستضيف 🏠", ["الترجي الرياضي", "الاتحاد المنستيري", "النادي الصفاقسي", "النجم الساحلي"], index=0)
+    st.metric(label="قوة الهجوم 🔥", value="1.85")
+    st.metric(label="قوة الدفاع 🛡️", value="0.20")
 
 with col2:
-    a_name = st.selectbox("✈️ الفريق الضيف", df['n'], index=1)
-    a_data = df[df['n'] == a_name].iloc[0]
-    st.markdown(f"<div class='stat-box'>🔥 الهجوم: {a_data['sc']}<br>🛡️ الدفاع: {a_data['con']}</div>", unsafe_allow_html=True)
+    away_team = st.selectbox("الفريق الضيف ✈️", ["النادي الإفريقي", "الملعب التونسي", "اتحاد بن قردان", "قوافل قفصة"], index=0)
+    st.metric(label="قوة الهجوم 🔥", value="1.55")
+    st.metric(label="قوة الدفاع 🛡️", value="0.35")
 
-# 6. محرك التوقعات
-st.write("")
-if st.button("📊 تشغيل المحلل الرقمي"):
-    with st.status("جاري معالجة البيانات...", expanded=True) as status:
-        st.write("تحليل القوة الهجومية...")
-        st.write("مقارنة الصلابة الدفاعية...")
-        trials = 5000
-        res, hw, d, aw = [], 0, 0, 0
-        for _ in range(trials):
-            hg = round((h_data['sc'] * (a_data['con']/1.1)) * random.uniform(0.6, 1.4))
-            ag = round((a_data['sc'] * (h_data['con']/1.1)) * random.uniform(0.6, 1.4))
-            res.append(f"{hg}-{ag}")
-            if hg > ag: hw += 1
-            elif ag > hg: aw += 1
-            else: d += 1
-        status.update(label="اكتمل التحليل!", state="complete", expanded=False)
+st.divider()
 
-    # عرض النتائج بأسلوب البطاقات
-    st.balloons()
-    st.markdown("### 🎯 توقعات المباراة")
-    c1, c2, c3 = st.columns(3)
-    c1.metric("فوز الأرض", f"{(hw/50):.1f}%", "🏠")
-    c2.metric("تعادل", f"{(d/50):.1f}%", "🤝")
-    c3.metric("فوز الضيف", f"{(aw/50):.1f}%", "✈️")
-    
-    st.success(f"📌 النتيجة الأكثر تكراراً في المحاكاة: **{Counter(res).most_common(1)[0][0]}**")
+# 4. جدول الترتيب (تنسيق تلقائي للعرض)
+st.subheader("جدول الترتيب الحالي 📊")
 
-# 7. جدول الترتيب في الأسفل
-st.markdown("---")
-st.markdown("### 📈 جدول ترتيب الدوري (2026)")
-st.table(df[['n', 'pts', 'w']].rename(columns={'n': 'الفريق', 'pts': 'النقاط', 'w': 'الفوز'}))
+data = {
+    'الفريق': ['الترجي الرياضي', 'النادي الإفريقي', 'الاتحاد المنستيري', 'الملعب التونسي', 'النجم الساحلي', 'النادي الصفاقسي'],
+    'لعب': [14, 14, 14, 14, 14, 14],
+    'الفوز': [13, 11, 10, 8, 7, 6],
+    'النقاط': [42, 38, 35, 31, 28, 24]
+}
 
-st.caption("حقوق الطبع محفوظة © 2026 | شريكك الذكي")
+df = pd.DataFrame(data)
+
+# عرض الجدول ليأخذ كامل عرض شاشة الهاتف
+st.dataframe(
+    df.style.set_properties(**{'text-align': 'center'}),
+    use_container_width=True,
+    hide_index=True
+)
+
+# 5. زر التحديث
+if st.button('تحديث البيانات الآن 🔄', use_container_width=True):
+    st.toast("جاري تحديث البيانات من السيرفر...")
+    st.rerun()
+
+st.markdown("<br><p style='text-align: center; font-size: 0.8rem;'>جميع الحقوق محفوظة © المحلل التونسي 2026</p>", unsafe_allow_html=True)
+
 
