@@ -85,4 +85,3 @@ if st.button("🔥 تحليل المباراة وتوليد التوقعات"):
         st.warning(f"⚠️ تنبيه: احتمال عالي لأكثر من 2.5 أهداف بنسبة {(o25/50):.1f}%")
 
 st.markdown("<p style='text-align: center; font-size: 0.8em; color: gray;'>تحذير: هذه التوقعات مبنية على محاكاة إحصائية ولا تضمن النتائج الحقيقية.</p>", unsafe_allow_html=True)
-    
