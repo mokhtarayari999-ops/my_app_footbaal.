@@ -1,6 +1,16 @@
+
+
 import streamlit as st
 import pandas as pd
-import random
+
+# الآن يمكنك كتابة محتوى تطبيقك، مثال:
+st.title("تطبيق المحلل التونسي")
+st.write("مرحباً بك في واجهة التطبيق الأصلية")
+
+# إذا كان لديك بيانات أو جداول:
+# df = pd.read_csv('your_data.csv')
+# st.dataframe(df)
+
 from collections import Counter
 
 # 1. إعدادات الصفحة الفاخرة
