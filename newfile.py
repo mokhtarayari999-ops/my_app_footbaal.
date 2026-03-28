@@ -67,5 +67,3 @@ if st.button('تحديث البيانات الآن 🔄', use_container_width=Tr
     st.rerun()
 
 st.markdown("<br><p style='text-align: center; font-size: 0.8rem;'>جميع الحقوق محفوظة © المحلل التونسي 2026</p>", unsafe_allow_html=True)
-
-
